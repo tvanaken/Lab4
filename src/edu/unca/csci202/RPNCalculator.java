@@ -84,11 +84,7 @@ public class RPNCalculator {
 	            } catch (EmptyStackException e) {
 	            	
 	            	System.out.println("Invalid input: not enough operands");
-	            	while(calcStack.size() > 0) {
-	            		calcStack.pop();
-	            	}
 	            	calcStack.push(Double.NaN);
-	            	break;
 	            }
 	            
 	            if (token.equals("q")) {
@@ -96,6 +92,17 @@ public class RPNCalculator {
 	            }
 	            
 	            
+	        }
+	        try {
+	        	
+	        	if (calcStack.size() > 1) {
+	        		
+	        		throw new tooManyOperandsException();
+	        	}
+	        } catch (Exception e) {
+	        	
+	        	System.out.println("Invalid input: too many operands");
+            	calcStack.push(Double.NaN);
 	        }
 	        return quit;
 	    }
