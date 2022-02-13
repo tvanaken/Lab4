@@ -31,6 +31,7 @@ public class RPNCalculator {
 	    }
 	    
 	    private boolean interpretExpression(String line) {
+	    	clear();
 	        Scanner lineParser = new Scanner(line);
 	        String token = "";
 	        boolean quit = false;
@@ -38,15 +39,26 @@ public class RPNCalculator {
 	        
 	        while (lineParser.hasNext()) {
 	            token = lineParser.next();
-	            try {
-	            	
-	            	operand = Double.parseDouble(token);
-		            calcStack.push(operand);
-	            } catch (Exception e) {
-	            	
+	            
+	            if (token.equals("q")) {
+	                quit=true;
+	                break;
 	            }
 	            
+	            if (token != "+" && token != "-" && token != "*" && token != "/" && token != "") {
+            		
+	            	try {
+		            	
+		            	operand = Double.parseDouble(token);
+			            calcStack.push(operand);
+		            } catch (Exception e) {
+		            	
+		            }
+            	}
+	            
+	            
 	            try {
+	            	
 		            switch(token) {
 		            case("+"): {
 		            	
@@ -87,11 +99,6 @@ public class RPNCalculator {
 	            	calcStack.push(Double.NaN);
 	            }
 	            
-	            if (token.equals("q")) {
-	                quit=true;
-	            }
-	            
-	            
 	        }
 	        try {
 	        	
@@ -112,6 +119,20 @@ public class RPNCalculator {
 	            System.out.println(calcStack.pop());
 	        }
 	    
+	    }
+	    
+	    private void clear() {
+	    	
+	    	try {
+	    		
+	    		while (calcStack.size() > 0) {
+		    		
+		    		calcStack.pop();
+		    	}
+	    	} catch (Exception e) {
+	    		
+	    	}
+	    	
 	    }
 
 	    public static void main(String [] args) {
